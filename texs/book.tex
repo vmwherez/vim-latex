@@ -1,0 +1,604 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[svgnames,names]{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{circuitikz}
+
+% Define block styles for flowchart-style block diagrams
+\tikzstyle{block} = [draw, rectangle, minimum height=3em, minimum width=6em]
+\tikzstyle{arrow} = [->, thick]
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\usepackage[T2A,T1]{fontenc}
+\usepackage{fourier}
+% Adjust margins if needed
+\usepackage[margin=1in]{geometry}
+\usepackage{titlesec}
+\usepackage{lipsum} % For generating dummy text, you can remove this in your actual document
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage[scaled]{beramono}
+%  \renewcommand*\familydefault{\ttdefault} %% Only if the base font of the document is to be typewriter style
+\usepackage[T1]{fontenc}
+\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.1}
+\definecolor{dkgrey}{rgb}{0.169,0.06,0.03}
+\definecolor{wildcard}{rgb}{0.9,0.9,0.89}
+% Title and author
+\title{Authoring in LaTeX with Tikz.}
+\author{M}
+\begin{document}
+\maketitle
+
+
+% tikz ***
+\begin{center}
+    \begin{tikzpicture}[x=5cm, y=5cm]
+        \draw[<->] (-1.5,0)--(1.5,0)node[above]{$x$};
+        \draw[<->] (0,-1.5)--(0,1.5)node[right]{$y$};
+         \foreach \x in {-1,1}
+            \draw[shift={(\x,0)}](0pt,2pt)--(0,-2pt)node[below]{\footnotesize $\x$};
+        \foreach \y in {-1,1}
+            \draw[shift={(0,\y)}](2pt,0pt)--(-2pt,0pt)node[left]{\footnotesize $\y$};
+   %     \draw [color=gray!30, dash pattern=on 1pt off 1pt, xstep=0.1,ystep=0.1] (-1.5,-1.5) grid (1.5,1.5);
+    %    \draw[thick, gray!50,xstep=0.5, ystep=0.5](-1.5,-1.5) grid (1.5,1.5);
+        \foreach \x in {-1.4,-1.3,-1.2,-1.1,-0.9,-0.8,-0.7,-0.6,-0.5,-0.4,-0.3,-0.2,-0.1,0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,1.1,1.2,1.3,1.4}
+         \draw(\x,2pt)--(\x,-2pt)node[below,gray!20]{$\x$};
+
+        % \draw[shift={(\x,0)}](0pt,2pt)--(0,-2pt)node[color=gray, rotate=90]{\footnotesize $\x$};
+        %\foreach \y in {-1.4,-1.3,-1.2,-1.1,-0.9,-0.8,-0.7,-0.6,-0.5,-0.4,-0.3,-0.2,-0.1,0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1,1.1,1.2,1.3,1.4}
+        %    \draw(\y,0)node[below, gray!30]{$\y$};
+            %\draw[shift={(0,\y)}](2pt,0pt)--(-2pt,0pt)node[color=gray, left]{\footnotesize $\y$};
+    
+
+        \draw (0,0) circle (1);
+    
+        \foreach \x in {0,10,...,360}
+            \draw[dashed, color=black] (0,0)--(\x:1);
+        \foreach \x in {0,10,...,360}
+            \draw [dashed, fill=black] (\x:1) circle (1.5pt)node[sloped, above]{$\x$};
+    
+        \foreach \x/\xtext in {             
+            30/\frac{\pi}{6},             
+            45/\frac{\pi}{4},             
+            60/\frac{\pi}{3},             
+            90/\frac{\pi}{2},             
+            120/\frac{2\pi}{3},             
+            135/\frac{3\pi}{4},             
+            150/\frac{5\pi}{6},             
+            180/\pi,             
+            210/\frac{7\pi}{6},             
+            225/\frac{5\pi}{4},             
+            240/\frac{4\pi}{3},             
+            270/\frac{3\pi}{2},             
+            300/\frac{5\pi}{3},             
+            315/\frac{7\pi}{4},             
+            330/\frac{11\pi}{6},             
+            360/2\pi
+            }                 
+            \draw (\x:5.75cm) node[above] {$\xtext$};
+       
+%	    \foreach \x in {0,30,...,360}
+ %           \draw[dashed,color=gray] (0,0)--(\x:5.5cm);
+  %      \foreach \x in {0,45,...,360}
+   %         \draw[dashed,color=gray] (0,0)--(\x:5.5cm);
+%%
+	    
+    \end{tikzpicture}
+    \end{center}
+% Title of the entry
+\newpage
+\section{Inline Math Expressions}
+% Entry content
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis eget quam nec est sollicitudin fermentum. $\int f(x)dx$ Donec aliquam, dui at vulputate tincidunt, elit lorem luctus quam, ac ultrices lorem risus a lectus. Fusce consectetur sapien sit amet malesuada consequat. Nulla vehicula magna vel odio tempus, ac varius tortor cursus. Morbi in mauris eu magna tincidunt placerat. Vestibulum efficitur, ex ac rhoncus faucibus, eros felis fermentum ipsum, nec finibus lacus augue vel lorem. Proin auctor nisl non nisl aliquam malesuada.
+
+\subsection{Graphing Functions}
+
+% tikz ***
+\begin{center}
+    \begin{tikzpicture}[scale=2,x=5cm,y=5cm]
+        \begin{axis}[
+                axis lines=middle,
+                axis line style={thick,<->},
+                xmin=-2*pi-0.5,xmax=2*pi+0.5,ymin=-4.5,ymax=4.5,
+                ytick={-4,-3,-2,-1,1,2,3,4},
+                xtick={-2*pi,-1.5*pi,-pi,-0.5*pi,0,0.5*pi,pi,1.5*pi,2*pi},
+                xticklabels={$-2\pi$,$-\frac{3}{2}\pi$,$-\pi$,$-\frac{1}{2}\pi$,$0$,$+\frac{1}{2}\pi$,$+\pi$,$+\frac{3}{2}\pi$,$+2\pi$},
+                tick label style={font=\tiny},
+                grid=minor,
+                % major grid style={dashed,very thin,black},
+                every axis plot post/.append style={thick},
+                label style={font=\tiny},
+                xlabel=$x$,
+                ylabel=$y$,
+                smooth,
+                %clip=false,restrict y to domain=-4:4,
+                legend style={
+                    font=\tiny,
+                    legend cell align=left,
+                    legend pos=outer north east,
+                    draw=none,
+                    empty legend},
+                legend entries={[gray]$y=\sin x$,[black]$y=\cos x$,[gray]$y=\tan x$}
+                ]
+        \addplot[domain=-2*pi:2*pi,samples=200,gray]{sin(deg(x))};
+        % \addplot[domain=-2*pi:2*pi,samples=200,black]{cos(deg(x))};
+        %\addplot[domain=-2*pi:2*pi,samples=200,gray]{tan(deg(x))};
+        % \addplot[domain=-2  *pi:-1.5*pi,samples=200,gray]{tan(deg(x))};
+        % \addplot[domain=-1.5*pi:-0.5*pi,samples=200,gray]{tan(deg(x))};
+        % \addplot[domain=-0.5*pi: 0.5*pi,samples=200,gray]{tan(deg(x))};
+        % \addplot[domain= 0.5*pi: 1.5*pi,samples=200,gray]{tan(deg(x))};
+        % \addplot[domain= 1.5*pi: 2  *pi,samples=200,gray]{tan(deg(x))};
+        \end{axis}
+    \end{tikzpicture}
+    \end{center}
+\subsection{The Definite Integral}  
+$$
+\int_{a}^{b}f(x)dx
+$$  
+\lipsum[3 - 7]
+\begin{center}
+\begin{tikzpicture}[scale=2,x=5cm, y=5cm]
+
+	% Draw the unit circle
+%    \draw (0,0) circle (5cm);
+    % Draw the axes
+ %   \draw[->] (-1.2,0) -- (1.2,0) node[right] {$x$};
+  %  \draw[->] (0,-1.2) -- (0,1.2) node[above] {$y$};
+    
+  %  \draw[fill=black] (1,0) circle (1pt) node[below right] {$1$};
+   % \draw[fill=black] (-1,0) circle (1pt) node[below left] {$-1$};
+ 
+
+	\begin{axis}[
+                axis lines=middle,
+                axis line style={thick,<->},
+                xmin=-2*pi-0.5, xmax=2*pi+0.5, ymin=-4.5, ymax=4.5,
+                ytick={-4,-3,-2,-1,1,2,3,4},
+                xtick={-2*pi,-1.5*pi,-pi,-0.5*pi,0,0.5*pi, pi,1.5*pi,2*pi},
+                xticklabels={$-2\pi$,$-\frac{3}{2}\pi$,$-\pi$,$-\frac{1}{2}\pi$,$0$,$+\frac{1}{2}\pi$,$+\pi$,$+\frac{3}{2}\pi$,$+2\pi$},
+                tick label style={font=\tiny},
+                grid=minor,
+                % major grid style={dashed, very thin, black},
+                every axis plot post/.append style={thick},
+                label style={font=\tiny},
+                xlabel=$x$,
+                ylabel=$y$,
+                smooth,
+                %clip=false,restrict y to domain=-4:4,
+                legend style={
+                    font=\tiny,
+                    legend cell align=left,
+                    legend pos=outer north east,
+                    draw=none,
+                    empty legend},
+                legend entries={[gray]$y=\tan x$,[black]$y=\cos x$,[gray]$y=\tan x$}
+                ]
+        
+%	\addplot[domain=-2*p:2*ip,samples=200],gray]{cos(deg(x))}
+	
+	% \addplot[domain=-2*pi:2*pi, samples=200,gray]{sin(deg(x))};
+        % \addplot[domain=-2*pi:2*pi, samples=200,black]{cos(deg(x))};
+        \addplot[domain=-2*pi:2*pi,samples=200,gray]{tan(deg(x))};
+        % \addplot[domain=-2  *pi:-1.5*pi, samples=200,gray]{tan(deg(x))};
+        % \addplot[domain=-1.5*pi:-0.5*pi, samples=200,gray]{tan(deg(x))};
+        % \addplot[domain=-0.5*pi: 0.5*pi, samples=200,gray]{tan(deg(x))};
+        % \addplot[domain= 0.5*pi: 1.5*pi, samples=200,gray]{tan(deg(x))};
+        % \addplot[domain= 1.5*pi: 2  *pi, samples=200,gray]{tan(deg(x))};
+        \end{axis}
+
+
+ \end{tikzpicture}
+\end{center}
+
+
+
+\newpage
+% Title of the entry
+\section{Observations}
+
+\subsection{circuitikz}
+
+\begin{center}
+\begin{circuitikz}[american voltages]
+\draw
+  (0,0) to [short, *-] (6,0)
+  to [V, l_=$\mathrm{j}{\omega}_m \underline{\psi}^s_R$] (6,2) 
+  to [R, l_=$R_R$] (6,4) 
+  to [short, i_=$\underline{i}^s_R$] (5,4) 
+  (0,0) to [open, v^>=$\underline{u}^s_s$] (0,4) 
+  to [short, *- ,i=$\underline{i}^s_s$] (1,4) 
+  to [R, l=$R_s$] (3,4)
+  to [L, l=$L_{\sigma}$] (5,4) 
+  to [short, i_=$\underline{i}^s_M$] (5,3) 
+  to [L, l_=$L_M$] (5,0); 
+\end{circuitikz}
+\end{center}
+
+\begin{circuitikz}
+    % Blocks
+    \draw (0,0) node[sum] (sum) {};
+    \draw (3,0) node[block] (plant) {Plant};
+    \draw (6,0) node[block] (sensor) {Sensor};
+    \draw (9,0) node[block] (controller) {Controller};
+    \draw (12,0) node[block] (actuator) {Actuator};
+    
+    % Connections
+    \draw[->] (-1,0) -- (sum);
+    \draw[->] (sum) -- (plant);
+    \draw[->] (plant) -- (sensor);
+    \draw[->] (sensor) -- (controller);
+    \draw[->] (controller) -- (actuator);
+    \draw[->] (actuator) -- (15,0);
+    \draw[->] (15,0) -- (15,2) -- (-1,2) -- (-1,0);
+    
+    % Labels
+    \node[above] at (sum) {$+$};
+    \node[below] at (sum) {$r(t)$};
+    \node[above] at (actuator) {$u(t)$};
+    \node[below] at (15,0) {$y(t)$};
+\end{circuitikz}
+
+\subsection{Block Diagrams Using Only TiKz}
+
+\lipsum[2]
+
+\begin{tikzpicture}[scale=3,auto, node distance=1.5cm]
+    % Blocks
+    \node[input, name=input] {};
+    \node[sum, right=of input] (sum) {$\sum$};
+    \node[block, right=of sum] (gain) {Gain};
+    \node[output, right=of gain] (output) {};
+    
+    % Connections
+    \draw[->] (input) -- node {$x[n]$} (sum);
+    \draw[->] (sum) -- node {$y[n]$} (gain);
+    \draw[->] (gain) -- node {$z[n]$} (output);
+\end{tikzpicture}
+
+\lipsum[3]
+\\
+
+
+
+\newpage
+\subsection{cos, sin, tan}
+
+
+% tikz ***
+\begin{center}
+    \begin{tikzpicture}[scale=2,x=5cm,y=5cm]
+        \begin{axis}[
+                axis lines=middle,
+                axis line style={thick,<->},
+                xmin=-2*pi-0.5,xmax=2*pi+0.5,ymin=-4.5,ymax=4.5,
+                ytick={-4,-3,-2,-1,1,2,3,4},
+                xtick={-2*pi,-1.5*pi,-pi,-0.5*pi,0,0.5*pi,pi,1.5*pi,2*pi},
+                xticklabels={$-2\pi$,$-\frac{3}{2}\pi$,$-\pi$,$-\frac{1}{2}\pi$,$0$,$+\frac{1}{2}\pi$,$+\pi$,$+\frac{3}{2}\pi$,$+2\pi$},
+                tick label style={font=\tiny},
+                grid=minor,
+                % major grid style={dashed,very thin,black},
+                every axis plot post/.append style={thick},
+                label style={font=\tiny},
+                xlabel=$x$,
+                ylabel=$y$,
+                smooth,
+                %clip=false,restrict y to domain=-4:4,
+                legend style={
+                    font=\tiny,
+                    legend cell align=left,
+                    legend pos=outer north east,
+                    draw=none,
+                    empty legend},
+                legend entries={[gray]$y=\sin x$,[black]$y=\cos x$,[gray]$y=\tan x$}
+                ]
+        \addplot[domain=-2*pi:2*pi,samples=200,gray]{sin(deg(x))};
+        \addplot[domain=-2*pi:2*pi,samples=200,black]{cos(deg(x))};
+        %\addplot[domain=-2*pi:2*pi,samples=200,gray]{tan(deg(x))};
+        \addplot[domain=-2  *pi:-1.5*pi,samples=200,gray]{tan(deg(x))};
+        \addplot[domain=-1.5*pi:-0.5*pi,samples=200,gray]{tan(deg(x))};
+        \addplot[domain=-0.5*pi: 0.5*pi,samples=200,gray]{tan(deg(x))};
+        \addplot[domain= 0.5*pi: 1.5*pi,samples=200,gray]{tan(deg(x))};
+        \addplot[domain= 1.5*pi: 2  *pi,samples=200,gray]{tan(deg(x))};
+        \end{axis}
+    \end{tikzpicture}
+    \end{center}
+\newpage
+\section{Examples}
+\subsection{Syntax Highlighting}
+
+\lstset{
+    language=Python,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    numberstyle=\tiny\color{gray},
+    commentstyle=\color{wildcard},
+    stringstyle=\color{gray},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=3,
+    keywordstyle=\color{black}\bfseries,
+    identifierstyle=\color{dkgrey},  }
+\begin{lstlisting}[language=Python,caption={Example Python code},basicstyle=\ttfamily\small,label=lst:python]
+def hello_world():
+"""
+docstring
+"""
+    print("Hello, world!")
+
+hello_world()
+\end{lstlisting}
+
+% Entry content
+Sed in lectus vestibulum, dictum justo et, accumsan sem. Duis tincidunt congue vehicula. Aliquam euismod congue justo, in congue purus. Integer in elit id ipsum consequat sodales. Mauris ut lorem luctus, rhoncus magna vel, dignissim lorem. Morbi sodales felis nec sapien posuere, a convallis purus varius. Integer pretium tristique orci, vel tincidunt metus tempus nec. Ut fermentum, orci at dapibus varius, enim lacus fringilla neque, vel dictum metus arcu nec metus.
+
+
+\subsection{Functions}
+
+\begin{center}
+    \begin{tikzpicture}[domain=0:4]
+        \draw[very thin,color=gray] (-0.1,-1.1) grid (3.9,3.9);
+        \draw[->] (-0.2,0) -- (4.2,0) node[right] {$x$};
+        \draw[->] (0,-1.2) -- (0,4.2) node[above] {$f(x)$};
+        \draw[color=gray]    plot (\x,\x)             node[right] {$f(x) =x$};
+        \draw[color=wildcard]   plot (\x,{sin(\x r)})    node[right] {$f(x) = \sin x$};
+        \draw[color=dkgrey] plot (\x,{0.05*exp(\x)}) node[right] {$f(x) = \frac{1}{20} \mathrm e^x$};
+      \end{tikzpicture}
+    \end{center}
+
+\begin{center}
+    \begin{tikzpicture}
+        % Axes
+            \draw[->] (0,0) -- (6,0) node[right] {$t$};
+            \draw[->] (0,-1.5) -- (0,1.5) node[above] {$x(t)$};
+        % Grid lines
+        \foreach \x in {1,2,3,4,5}
+            \draw (\x,-0.1) -- (\x,0.1);
+        \foreach \y in {-1,-0.5,0.5,1}
+             \draw (-0.1,\y) -- (0.1,\y);
+        % Signal
+            \draw[gray,thick,domain=0:5,samples=200] plot (\x,{sin(2*pi*\x r)});
+        \end{tikzpicture}
+    \end{center}
+    
+
+$$
+\int_{-\infty}^{\infty} \delta(t - t_0) \, dt = 1
+$$
+
+\newpage
+\subsection{Area Under A Curve}
+$$
+Area = \int_{a}^{b} f(x) \, dx
+$$
+\begin{center}
+
+    \begin{tikzpicture}[scale=1.5]
+        % Axes
+        \draw[->] (-0.2,0) -- (3.5,0) node[right] {$x$};
+        \draw[->] (0,-0.2) -- (0,2) node[above] {$y$};
+        
+        % Curve
+        \draw[domain=0:3,smooth,variable=\x,black] plot ({\x},{0.5*sin(3*\x r)+1});
+        
+        % Filling area
+        \fill[gray!30,domain=0:3,variable=\x]
+            (0,0)
+            -- plot ({\x},{0.5*sin(3*\x r)+1})
+            -- (3,0)
+            -- cycle;
+            
+        % Annotations
+        \node at (2.5,1.7) {$y = f(x)$};
+        % \node at (1.5,0.5) {$\text{Area} = \int_{a}^{b} f(x) \, dx$};
+        \draw[dashed] (1.5,0) -- (1.5,0.5) node[midway,left] {$a$};
+        \draw[dashed] (2.5,0) -- (2.5,1.4) node[midway,right] {$b$};
+        % \draw[dashed] (3,0) -- (3,0.5) node[midway,right] {$b$};
+        % \draw[dashed] (0,0.5) -- (1.5,0.5) node[midway,below] {$a$};
+    \end{tikzpicture}
+\end{center}
+  
+The Discrete-Time Fourier Transform (DTFT) $X(e^{j\omega})$ of a discrete-time signal $x[n]$ is related to the continuous Fourier transform $X(f)$ of a continuous-time signal $x(t)$ as follows:
+
+\[
+X(e^{j\omega}) = \lim_{{T \to 0}} \sum_{{n=-\infty}}^{\infty} x(t_n)e^{-j\omega t_n} \cdot T
+\]
+
+Here, $t_n = nT$ represents the discrete sampling instants of the continuous-time signal with sampling interval $T$. As $T$ approaches zero, this expression converges to the continuous Fourier transform $X(f)$.
+
+
+\newpage
+\section{Sample Code}
+\lstset{
+    language=C,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    columns=flexible,
+    numberstyle=\tiny\color{gray},
+    commentstyle=\color{wildcard},
+    stringstyle=\color{gray},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=3,
+    keywordstyle=\color{black}\bfseries,
+    identifierstyle=\color{dkgrey},
+  }
+    \begin{lstlisting}[language=C,caption={Example C code},  basicstyle=\ttfamily\small, label=lst:c]
+        //
+        /* $ cc sine.c $(pkg-config --cflags --libs jack) -lm */
+        //
+        #include <stdlib.h>
+        #include <stdio.h>
+        #include <unistd.h>
+        #include <signal.h>
+        #include <math.h>
+        #include <jack/jack.h>
+        #define PI_F 3.14159265f
+        
+        static jack_client_t *client = NULL;
+        static jack_port_t *port_out = NULL;
+        static volatile int done = 0;
+        
+        static void
+        die(const char *msg)
+        {
+          fprintf(stderr, "[error] %s\n", msg);
+          if (client)
+            jack_client_close(client);
+          exit(EXIT_FAILURE);
+        }
+        
+        static void
+        info(const char *msg)
+        {
+          fprintf(stderr, "[info] %s\n", msg);
+        }
+        
+        static void
+        on_shutdown(void *arg)
+        {
+          client = NULL;
+          die("jack server is down, exiting...");
+        }
+        
+        static void
+        on_signal(int signum)
+        {
+          done = 1;
+        }
+        
+        static int
+        on_process(jack_nframes_t nframes, void *arg)
+        {
+          static float phs = 0;
+          jack_default_audio_sample_t *out;
+          jack_nframes_t i;
+        
+          out = jack_port_get_buffer(port_out, nframes);
+          for (i = 0; i < nframes; ++i) {
+            out[i] = 0.1f * sinf(2*PI_F*phs);
+            phs += 0.01f;
+            while (phs >= 1) phs--;
+          }
+        
+          return 0;
+        }
+        
+        int main(void)
+        {
+          const char **ports;
+        
+          client = jack_client_open("sine", JackNoStartServer, NULL);
+          if (!client)
+            die("fail to open client");
+          info("jack client opened");
+        
+          jack_on_shutdown(client, on_shutdown, NULL);
+          info("shutdown callback registered");
+        
+          if (jack_set_process_callback(client, on_process, NULL))
+            die("fail to set up process callback");
+          info("process callback registered");
+        
+          port_out = jack_port_register(client, "out", JACK_DEFAULT_AUDIO_TYPE,
+                                        JackPortIsOutput, 0);
+          if (!port_out)
+            die("fail to register audio output port");
+          info("output port registered");
+        
+          if (jack_activate(client))
+            die("fail to activate client");
+          info("jack client activated");
+        
+          ports = jack_get_ports(client, NULL, NULL,
+                                 JackPortIsInput|JackPortIsPhysical);
+          if (ports) {
+            int i;
+            for (i = 0; ports[i]; ++i)
+              jack_connect(client, jack_port_name(port_out), ports[i]);
+            jack_free(ports);
+          }
+        
+          signal(SIGINT, on_signal);
+          signal(SIGTERM, on_signal);
+        #ifndef _WIN32
+          signal(SIGQUIT, on_signal);
+          signal(SIGHUP, on_signal);
+        #endif
+        
+          info("done! press ctrl-c to exit");
+        
+          while (!done)
+            sleep(1);
+        
+          jack_deactivate(client);
+          jack_client_close(client);
+          return 0;
+        }
+        
+        \end{lstlisting}
+
+\newpage
+\section{Conclusion}
+\lipsum[3 - 9]
+\begin{center}
+\begin{tikzpicture}[scale=2]
+    % Draw the unit circle
+    \draw (0,0) circle (1cm);
+    % Draw the axes
+    \draw[->] (-1.2,0) -- (1.2,0) node[right] {$x$};
+    \draw[->] (0,-1.2) -- (0,1.2) node[above] {$y$};
+    % Draw the angle for 45 degrees
+    \draw[fill=black] (0.5,0.5) circle (0.5pt);
+    % \draw pic [draw, angle radius=0.6cm,"$45^\circ$",angle eccentricity=1.5] {angle = {0,0} -- {0.5,0} -- {0.5,0.5}};    
+    % Draw points for (1,0) and (-1,0)
+    \draw[fill=black] (1,0) circle (1pt) node[below right] {$1$};
+    \draw[fill=black] (-1,0) circle (1pt) node[below left] {$-1$};
+    % Draw the unit square
+    \draw[thick] (-1,-1) rectangle (1,1);
+  \end{tikzpicture}
+\end{center}
+% References section
+\newpage
+\section{References}
+\begin{enumerate}
+    \item Author, A. (Year). Title of the reference. Journal/Book/Website name, Volume/URL.
+    \item Author, A. (Year). Title of the reference. Journal/Book/Website name, Volume/URL.
+    \item Author, A. (Year). Title of the reference. Journal/Book/Website name, Volume/URL.
+\end{enumerate}
+
+
+\[
+\left(
+\begin{array}{ccc}
+  {1}  , {-1}   \\
+  {0},   {0}   \\
+ {-1}, {1}   
+\end{array}
+\right)
+\]
+
+
+\begin{tikzpicture}
+    % Blocks
+    \node [block] (start) {Start};
+    \node [block, below of=start] (input) {Input};
+    \node [block, below of=input] (process) {Process};
+    \node [block, below of=process] (output) {Output};
+    \node [block, below of=output] (stop) {Stop};
+    
+    % Arrows
+    \draw [arrow] (start) -- (input);
+    \draw [arrow] (input) -- (process);
+    \draw [arrow] (process) -- (output);
+    \draw [arrow] (output) -- (stop);
+\end{tikzpicture}
+
+
+\end{document}

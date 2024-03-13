@@ -1,3 +1,11 @@
+# LaTeX stuff
+
+*.log
+*.aux
+*.fls
+*.synctex.gz
+	
+
 *~
 
 *.swp
